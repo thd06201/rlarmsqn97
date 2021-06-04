@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kubg.mappers.shopMapper">
+   
+   
+<!-- 검색창 select문 --> 
+<select id="productSearch" resultType="com.kubg.domain.GoodsVO">
+SELECT * from tbl_goods
+WHERE gdsName LIKE CONCAT('%',#{keyword},'%')  
+</select>   
+
+<select id="list" resultType="com.kubg.domain.GoodsViewVO">
+select
+    g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate, g.gdsImg, g.gdsThumbImg
+        from tbl_goods g
+            inner join goods_category c
+                on g.cateCode = c.cateCode           
+            where g.cateCode = #{cateCode} OR g.cateCode = #{cateCode}+1
+</select>
+
+<!-- 상품 디테일 + 카테고리 조인-->
+<select id="goodsView" resultType="com.kubg.domain.GoodsViewVO">
+ select
+     g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate,
+     g.gdsImg, g.gdsThumbImg
+         from tbl_goods g
+             inner join goods_category c
+                 on g.cateCode = c.cateCode           
+            where g.gdsNum = #{gdsNum}
+</select>
+
+<!-- 카트 담기 -->
+<insert id="addCart">
+ insert into tbl_cart (cartNum, userId, gdsNum, cartStock)
+     values (nextval(tbl_cart_seq), #{userId}, #{gdsNum}, #{cartStock})
+</insert>
+
+<!-- 카트 목록 -->
+<select id="cartList" resultType="com.kubg.domain.CartListVO">
+ select
+     row_number() over(order by c.cartNum desc) as num,
+     c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
+     g.gdsName, g.gdsPrice, g.gdsImg, g.gdsDate
+ from tbl_cart c
+     inner join tbl_goods g
+         on c.gdsNum = g.gdsNum   
+     where c.userId = #{userId}
+</select>
+
+<!-- 카트 삭제 -->
+<!-- 
+<delete id="deleteCart">
+ delete from tbl_cart
+     where cartNum = #{cartNum}
+         and userId = #{userId}
+</delete>
+ -->
+ 
+<!-- 주문 정보 -->
+<insert id="orderInfo">
+ insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+     values (#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+</insert>
+
+
+<!-- 주문 상세 정보 --> 
+<insert id="orderInfo_Details">
+ insert into tbl_order_details(orderId, gdsNum, cartStock)
+     select #{orderId}, gdsNum, cartStock
+     from tbl_cart   
+</insert>
+
+<!-- 특정 유저의 주문 목록 -->
+<select id="orderList" resultType="com.kubg.domain.OrderVO">
+ select
+     orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount, orderDate
+ from tbl_order 
+     where userId = #{userId}
+</select>
+
+<!-- 특정 주문 목록 -->
+<select id="orderView" resultType="com.kubg.domain.OrderListVO">
+ select
+     o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate,
+      d.gdsNum, d.cartStock,
+     g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
+ from tbl_order o
+         inner join tbl_order_details d
+             on o.orderId = d.orderId
+         inner join tbl_goods g
+             on d.gdsNum = g.gdsNum
+     where o.userId = #{userId}
+         and o.orderId = #{orderId}
+</select>
+
+
+   
+   
+<!-- 바로구매 --> 
+<!--  
+<select id="getOrdersByUserId" resultType="com.kubg.domain.OrderVO">
+	select * from tbl_order 
+	where userId = #{userId}
+</select> 
+-->
+
+
+<!-- 카트 비우기 -->
+<delete id="cartAllDelete">
+ delete tbl_cart
+     where userId = #{userId}
+</delete>
+
+
+
+
+
+
+<!-- 주문 상세 정보 --> 
+  <!--  
+<insert id="orderInfo_Details">
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
+     select  (orderId, gdsNum, cartStock)
+	 from tbl_cart   
+	 where orderId= #{orderId}
+</insert> 
+
+     --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

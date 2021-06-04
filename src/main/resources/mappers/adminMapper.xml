@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kubg.mappers.adminMapper">
+   
+<!-- 카테고리 호출 -->
+<select id="category" resultType="com.kubg.domain.CategoryVO">
+WITH recursive cte AS (
+SELECT cateName, cateCode, cateCodeRef, 1 AS level
+FROM goods_category
+WHERE cateCodeRef IS null
+UNION all
+SELECT p.cateName, p.cateCode, p.cateCodeRef, 1 + LEVEL AS level
+FROM goods_category p
+INNER JOIN cte
+ON p.cateCodeRef = cte.cateCode
+)
+SELECT cateName, cateCode, cateCodeRef, LEVEL FROM cte;
+
+</select>
+
+<!-- 상품 등록 -->
+<insert id="register">
+INSERT INTO tbl_goods (gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes,gdsImg,gdsThumbImg)
+VALUES (nextval(tbl_goods_seq), #{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes},
+        #{gdsImg}, #{gdsThumbImg})
+</insert>
+
+<!-- 상품 등록 -->
+<insert id="register2">
+INSERT INTO tbl_cu (cuNum, cuName, cuStock, cuPrice, cuImg, cuThumbImg)
+VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuThumbImg} )
+</insert>
+
+<!-- 상품 목록 --> 
+<select id="goodslist" resultType="com.kubg.domain.GoodsViewVO">
+ select
+     g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate,
+     g.gdsImg, g.gdsThumbImg
+         from tbl_goods g
+             inner join goods_category c
+                 on g.cateCode = c.cateCode
+</select>
+
+
+<!-- 상품 조회 + 카테고리 조인-->
+<select id="goodsView" resultType="com.kubg.domain.GoodsViewVO">
+ select
+     g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate,
+     g.gdsImg, g.gdsThumbImg
+         from tbl_goods g
+             inner join goods_category c
+                 on g.cateCode = c.cateCode           
+            where g.gdsNum = #{gdsNum}
+</select>
+
+<!-- 상품 수정 -->
+<update id="goodsModify">
+ update tbl_goods
+     set
+         gdsName = #{gdsName},
+         cateCode = #{cateCode},
+         gdsPrice = #{gdsPrice},
+         gdsStock = #{gdsStock},
+         gdsDes = #{gdsDes},
+        
+         gdsImg = #{gdsImg},
+         gdsThumbImg = #{gdsThumbImg}
+        
+     where gdsNum = ${gdsNum}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="goodsDelete">
+ delete
+     from tbl_goods
+ where gdsNum = #{gdsNum}
+</delete>
+
+<!-- 회원 목록 -->
+<select id="goodsmember" resultType="com.kubg.domain.MemberVO">
+ select
+  userID,userName,userPhon,regiDate
+    from tbl_member
+</select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
+
+
