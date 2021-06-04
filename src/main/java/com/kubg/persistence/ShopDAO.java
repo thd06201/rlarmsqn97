@@ -44,10 +44,13 @@ public interface ShopDAO {
 	
 	// 카트 비우기
 	public void cartAllDelete(String userId) throws Exception;
-
+	
+	public void cartDelete(String userId, int[] cartNums);
+	
 	// 주문 목록
 	public List<OrderVO> orderList(OrderVO order) throws Exception;
 			
 	// 특정 주문 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
+	public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception;
 }

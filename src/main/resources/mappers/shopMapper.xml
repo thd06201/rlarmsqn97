@@ -50,13 +50,11 @@ select
 </select>
 
 <!-- 카트 삭제 -->
-<!-- 
 <delete id="deleteCart">
  delete from tbl_cart
      where cartNum = #{cartNum}
          and userId = #{userId}
 </delete>
- -->
  
 <!-- 주문 정보 -->
 <insert id="orderInfo">
@@ -84,7 +82,7 @@ select
 <select id="orderView" resultType="com.kubg.domain.OrderListVO">
  select
      o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate,
-      d.gdsNum, d.cartStock,
+      d.gdsNum, d.cartStock, d.gdsDate, d.gdsDate,
      g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
  from tbl_order o
          inner join tbl_order_details d
@@ -95,8 +93,19 @@ select
          and o.orderId = #{orderId}
 </select>
 
+<select id="getOrderViewsByUserId" resultType="com.kubg.domain.OrderListVO">
+ select
+     o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate,
+      d.gdsNum, d.cartStock, d.gdsDate,
+     g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
+ from tbl_order o
+         inner join tbl_order_details d
+             on o.orderId = d.orderId
+         inner join tbl_goods g
+             on d.gdsNum = g.gdsNum
+     where o.userId = #{userId}
+</select>
 
-   
    
 <!-- 바로구매 --> 
 <!--  
@@ -109,8 +118,17 @@ select
 
 <!-- 카트 비우기 -->
 <delete id="cartAllDelete">
- delete tbl_cart
-     where userId = #{userId}
+ delete from tbl_cart
+ 	 where cartNum = #{cartNum}
+ 	 and userId = #{userId}
+</delete>
+
+<delete id="cartDelete">
+ delete from tbl_cart
+ 	 where userId = #{userId} and
+ 	 <foreach collection="cartNums" item="cartNum" open="(" close=")" separator=" or ">
+ 	 	cartNum = #{cartNum}
+ 	 </foreach>
 </delete>
 
 

@@ -1,9 +1,18 @@
 package com.kubg.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +29,11 @@ public class MemberController {
 	
 	@Inject
 	MemberService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	private Map<String, String> randomKeys = new HashMap<String, String>();
 
 	
 	// 회원 가입 get
@@ -124,6 +138,56 @@ public class MemberController {
 			  
 			 return "redirect:/";
 			}
+		
+		@RequestMapping("/findid")
+		public String findId() {
+			return "member/findid";
+		}
+
+		@RequestMapping("/requestMail")
+		public void requestMail(String email) throws MessagingException {
+			System.out.println("email: " + email);
+			
+			Random random = new Random();
+
+			String randomKey = "";
+			for (int i = 0; i < 6; i++) {
+				randomKey += random.nextInt(9);
+			}
+
+			randomKeys.put(email, randomKey);
+
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mail);
+			helper.setFrom("nykwom97@kyungmin.ac.kr");
+			helper.setTo(email);
+			helper.setSubject("인증 메일입니다.");
+			helper.setText("인증번호: " + randomKey);
+			mailSender.send(mail);
+		}
+		
+		@RequestMapping("/existsEmail")
+		@ResponseBody
+		public int existsEmail(String email) throws Exception {
+			return service.getIdByEmail(email) != null ? 1 : 0;
+		}
+		
+		@RequestMapping("/chkMailKey")
+		@ResponseBody
+		public int chkMailKey(String email, String key) {
+			return randomKeys.containsKey(email) && randomKeys.get(email).equals(key) ? 1 : 0;
+		}
+		
+		@RequestMapping("/requestId")
+		@ResponseBody
+		public String requestId(String email, String key) throws Exception {
+			if (randomKeys.containsKey(email) && randomKeys.get(email).equals(key)) {
+				System.out.println("id: " + service.getIdByEmail(email));
+				return service.getIdByEmail(email);
+			}
+			
+			return "";
+		}
 		
 		
 		

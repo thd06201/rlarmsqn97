@@ -2,6 +2,7 @@ package com.kubg.persistence;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -84,6 +85,14 @@ public class ShopDAOImpl implements ShopDAO {
 	public void cartAllDelete(String userId) throws Exception {
 		sql.delete(namespace + ".cartAllDelete", userId);
 	}
+	
+	@Override
+	public void cartDelete(String userId, int[] cartNums) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("cartNums", cartNums);
+		sql.delete(namespace + ".cartDelete", map);
+	}
 
 	// 주문 목록
 	@Override
@@ -97,5 +106,9 @@ public class ShopDAOImpl implements ShopDAO {
 		return sql.selectList(namespace + ".orderView", order);
 	}
 	
+	@Override
+	public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception {
+		return sql.selectList(namespace + ".getOrderViewsByUserId", userId);
+	}
 
 }

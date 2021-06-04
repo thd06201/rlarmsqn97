@@ -82,6 +82,11 @@ public class ShopServiceImpl implements ShopService{
 		dao.cartAllDelete(userId);
 	}
 	
+	@Override
+	public void cartDelete(String userId, int[] cartNums) {
+		dao.cartDelete(userId, cartNums);
+	}
+	
 	// 주문 목록
 	@Override
 	public List<OrderVO> orderList(OrderVO order) throws Exception {
@@ -94,12 +99,10 @@ public class ShopServiceImpl implements ShopService{
 		return dao.orderView(order);
 	}
 	
-	
-	
-	
-	
-	
-	
+	@Override
+	public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception {
+		return dao.getOrderViewsByUserId(userId);
+	}
 	
 	
 }

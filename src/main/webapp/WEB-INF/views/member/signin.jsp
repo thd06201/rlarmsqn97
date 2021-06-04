@@ -40,7 +40,8 @@
 						   <label for="userPass">비밀번호</label> 
 						   <input type="password" id="userPass" name="userPass" required="required" /> 
 						    
-						   <button type="submit" id="signup_btn" name="signup_btn">로그인</button><br>
+						   <button type="submit" id="signup_btn" name="signup_btn">로그인</button>
+						   <button type="button" onclick="location.href='/member/findid'">아이디 찾기</button><br>
 							
 							<c:if test="${msg == false}">
 							<br><p style="color: #f00;">로그인에 실패했습니다.</p>

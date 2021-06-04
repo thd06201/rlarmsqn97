@@ -45,6 +45,12 @@ public class AdminController {
 	 	
 	}
 	
+	//관리자 화면 
+		@RequestMapping(value = "/index2", method = RequestMethod.GET)
+		public void getIndex2() throws Exception {
+		 	
+		}
+	
 	// 상품 등록
 	@RequestMapping(value = "/goods/register", method = RequestMethod.GET)
 	public void getGoodsRegister(Model model) throws Exception {

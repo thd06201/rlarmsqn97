@@ -18,5 +18,9 @@ public interface MemberDAO {
 	
 	//회원탈퇴
 	public void withdrawal(MemberVO vo) throws Exception;
+	
+	//이메일 확인
+	public String getIdByEmail(String email) throws Exception;
+
 
 }

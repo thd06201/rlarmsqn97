@@ -49,5 +49,10 @@ public class MemberServiceImpl implements MemberService {
 	public void withdrawal(MemberVO vo) throws Exception {
 		dao.withdrawal(vo);
 	}
+	
+	//이메일 인증
+	public String getIdByEmail(String email) throws Exception {
+		return dao.getIdByEmail(email);
+	}
 
 }

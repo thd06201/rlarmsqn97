@@ -24,7 +24,7 @@
 		  <div class="col-md-12">
 			<div class="aa-myaccount-area">
     		  <div class="row">
-    		  	<a href="/"><div style="position: relative; bottom: 65px; right: -1100px;" > 홈 > 정보수정</div><br></a>
+    		  	<a href="/"><div style="position: relative; bottom: 65px; right: -1100px;" > 홈 > 회원가입</div><br></a>
 
 				<div class="col-md-6">
 				  <div style="position: relative; right: -290px;" class="aa-myaccount-register" id="aa-myaccount">
@@ -48,18 +48,24 @@
 						   <label for="userName">이름</label> 
 						   <input type="text" id="userName"	name="userName" placeholder="이름을 입력해주세요" required="required" />
 					   </p>	
-					   <p>  
-						   <label for="userPhon">생년월일</label> 
-						   <input type="text" id="userBi" name="userBi" placeholder="생년월일을 입력해주세요(8자리)" required="required" />
-					   </p>
-
+					    <p>	  
+						   <label for="userName">생년월일</label> 
+						   <input type="text" id="userBi"	name="userBi" placeholder="생년월일 7자리를 입력해주세요" required="required" />
+					   </p>	
 					   <p>  
 						   <label for="userPhon">연락처</label> 
 						   <input type="text" id="userPhon" name="userPhon" placeholder="연락처를 입력해주세요" required="required" />
 					   </p>
-						<button type="submit" id="signup_btn"  name="signup_btn">회원가입</button>
-						
-						
+					   <p>  
+						   <label for="userEmail">이메일</label> 
+						   <input type="text" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요" required="required" />
+						   <button type="button" id="btnSendEmail">인증번호 전송</button>
+					   </p><br><br>
+					   <p>  
+						   <label for="userEmailKey">인증번호 입력</label> 
+						   <input type="text" id="userEmailKey" name="userEmailKey" placeholder="인증번호를 입력해주세요" required="required" />
+					   </p>
+						<a href="/"><button type="button" id="signup_btn"  name="signup_btn">회원가입</button></a>
 							
 						</form>
 					</div>
@@ -103,6 +109,39 @@ $(".idChk").click(function(){
  } else {
 	 alert("아이디를 입력해주세요");
 	 }
+});
+
+$("#btnSendEmail").click(function () {
+	$.ajax({
+		url : "/member/requestMail",
+		type : "post",
+		data : {
+			email: $("#userEmail").val(),
+		}
+	});
+	
+	alert("인증 메일을 보냈습니다.");
+	$("#btnSendEmail").attr("disabled", true);
+});
+
+$("#signup_btn").click(function () {
+	$.ajax({
+		url : "/member/chkMailKey",
+		type : "post",
+		data : {
+			email: $("#userEmail").val(),
+			key: $("#userEmailKey").val()
+		},
+		success: function (result) {
+			if (result == 1) {
+				$(".aa-login-form").submit();
+			} else {
+				alert("인증 번호가 잘못되었습니다.");
+			}
+		}
+	});
+	
+	return false;
 });
 </script>
 </body>

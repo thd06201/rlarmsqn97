@@ -47,6 +47,13 @@ public class MemberDAOImpl implements MemberDAO{
 		sql.delete(namespace + ".withdrawal", vo);
 		
 	}
+	
+	//이메일 인증
+	@Override
+	public String getIdByEmail(String email) throws Exception {
+		return sql.selectOne(namespace + ".getIdByEmail", email);
+	}
+
 
 	
 	

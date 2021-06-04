@@ -5,8 +5,8 @@
 <ul>
 	<c:if test="${member != null}">
 		
-		<a href="/" style="position: relative; bottom: -7px;  font-size:19px;">일반 화면 &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/" style="position: relative; bottom: -7px;  font-size:19px;">일반 화면 &nbsp;&nbsp;&nbsp;&nbsp;</a>
 	
-		<a href="/member/signout" style="position: relative; bottom: -7px;  font-size:19px;">로그아웃 &nbsp;&nbsp;&nbsp;&nbsp;</a></a>
+		<a href="/member/signout" style="position: relative; bottom: -7px;  font-size:19px;">로그아웃 &nbsp;&nbsp;&nbsp;&nbsp;</a>
 	</c:if>
 </ul>

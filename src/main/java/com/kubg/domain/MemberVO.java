@@ -14,8 +14,17 @@ public class MemberVO {
 	private Date regiDate;
 	private int verify;
 	private int userBi;
+	private String userEmail;
 	
 	
+	
+	
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 	public int getUserBi() {
 		return userBi;
 	}

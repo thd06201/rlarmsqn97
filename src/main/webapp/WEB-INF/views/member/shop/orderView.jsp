@@ -123,12 +123,12 @@
                                     <tr>
                                        <td>${orderView.getOrderId()}</td>
                                        <td>
-                                       <a href="#"><fmt:formatDate value="${orderView.gdsDate}" pattern="yyyy/MM/dd" var="datePath"/>
+                                       <a href="#"><fmt:formatDate value="${orderView.orderDate}" pattern="yyyy/MM/dd" var="datePath"/>
                               		   <img src="<c:url value="/resources/imgUpload/${datePath}/${orderView.gdsImg}"/>" alt="img"></a>
                               		   </td>
                                        <td>${orderView.gdsName}</td> <!-- 상품이름 -->
                                        <td>${orderView.gdsPrice}</td><!-- 상품가격 -->
-                                       <td>${orderView.gdsStock}</td>
+                                       <td>${orderView.cartStock}</td>
                                        <td>${orderView.amount}</td>
                                        <td>배송중</td>
                                        <td><a href="return.html" class="aa-cart-view-btn">취소/반품</a></td>

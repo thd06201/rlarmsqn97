@@ -81,7 +81,7 @@ VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuTh
 <!-- 회원 목록 -->
 <select id="goodsmember" resultType="com.kubg.domain.MemberVO">
  select
-  userID,userName,userPhon,regiDate
+  userID,userName,userPhon,regiDate,userBi,userEmail
     from tbl_member
 </select>
 

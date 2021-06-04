@@ -57,12 +57,12 @@
 <!-- start header bottom  -->
 <div class="aa-header-bottom">
   <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top:-10%;">
       <div class="col-ld-12">
         <div class="aa-header-bottom-area">
           <!-- logo  -->
             <div class wrapper="aa-logo">
-            <div style="position: relative;  right: -420px; bottom:-19px;">
+            <div style="position: relative;  right: -420px; bottom:-120px;">
             <!-- Text based logo -->
             <a href="/"><img src="/resources/img/logo.jpg" alt="img"></a>
            </div>

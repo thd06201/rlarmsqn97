@@ -140,7 +140,7 @@ public class ShopController {
 		
 		// 장바구니에서 주문
 		@RequestMapping(value = "/cartList", method = RequestMethod.POST)
-		public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+		public String order(HttpSession session, String checkedListStr, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("member");  
 		 String userId = member.getUserId();
@@ -164,10 +164,17 @@ public class ShopController {
 		 
 		 orderDetail.setOrderId(orderId);   
 		 service.orderInfo_Details(orderDetail);
+	
+		 System.out.println("checkedListStr: " + checkedListStr);
+		 String[] checkedSplit = checkedListStr.split(",");
+		 int[] checkedList = new int[checkedSplit.length];
+		 for (int i = 0; i < checkedSplit.length; i++) {
+			 checkedList[i] = Integer.parseInt(checkedSplit[i]);
+		 }
 		 
-		 service.cartAllDelete(userId);
+		 service.cartDelete(userId, checkedList);
 		 
-		 return "redirect:/shop/orderView";  
+		 return "redirect:/shop/orderList";  
 		}
 		
 		// 주문 목록
@@ -188,14 +195,14 @@ public class ShopController {
 		
 		// 주문 상세 목록
 		@RequestMapping(value = "/orderView", method = RequestMethod.GET)
-		public String getOrderView(HttpSession session, OrderVO order, Model model) throws Exception {
-		 
+		public String getOrderView(HttpSession session, Model model) throws Exception {
 		 MemberVO member = (MemberVO)session.getAttribute("member");
 		 String userId = member.getUserId();
 		 
-		 order.setUserId(userId);
+		 List<OrderListVO> orderView = service.getOrderViewsByUserId(userId);
 		 
-		 List<OrderListVO> orderView = service.orderView(order);
+		 System.out.println("orderView: " + orderView);
+		 
 		 
 		 model.addAttribute("orderView", orderView);
 		 

@@ -1,17 +1,21 @@
 package com.kubg.domain;
 
+import java.util.Date;
+
 public class OrderDetailVO {
-/*  
-    orderDetailsNum number       not null,
-    orderId         varchar2(50) not null,
-    gdsNum          number          not null,
-    cartStock       number          not null,
-*/
+
 	private String orderId;
 	private int gdsNum;
 	private int cartStock;
+	private Date gdsDate;
 	
 	
+	public Date getGdsDate() {
+		return gdsDate;
+	}
+	public void setGdsDate(Date gdsDate) {
+		this.gdsDate = gdsDate;
+	}
 	public String getOrderId() {
 		return orderId;
 	}

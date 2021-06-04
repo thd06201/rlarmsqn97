@@ -167,7 +167,7 @@
                       <tr>
                         <td>
                         <div class = "checkBox">
-                        	<input type = "checkbox" name="chBox" class="chBox" data-cartNum="${cartList.cartNum}"/>
+                        	<input type = "checkbox" name="chBox" class="chBox" value="${cartList.cartNum}" data-cartNum="${cartList.cartNum}"/>
                        <script>
 						 $(".chBox").click(function(){
  						 $("#allCheck").prop("checked", false);
@@ -250,9 +250,10 @@
 			</div>
 
 					 <div class="orderInfo">
- 						<form role="form" method="post" autocomplete="off">
+ 						<form role="form" method="post" id="infoForm" autocomplete="off">
     
   						<input type="hidden" name="amount" value="${sum}" />
+  						<input type="hidden" name="cartNum" value="${cartNum}"  />
   						
   						
     
@@ -374,11 +375,13 @@
 						    }
 						</script>
 					</div>
+					
+					<input type="hidden" class="checkedListStr" name="checkedListStr">
 					  
 					  
 					  
 					  <div class="inputArea">
-					   <button type="submit" class="order_btn">주문</button>
+					   <button type="button" class="order_btn">주문</button>
 					   <button type="button" class="cancel_btn">취소</button> 
 					   
 						<script>
@@ -424,6 +427,20 @@
 <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
 <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
 <div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+
+<script>
+	$(".order_btn").click(function () {
+		let str = "";
+		$(".chBox").each(function () {
+			if (this.checked) {
+				str += str.length < 1 ? this.value : "," + this.value;
+			}
+		});
+		$(".checkedListStr").val(str);
+		
+		$("#infoForm").submit();
+	});
+</script>
 
 
 <!-- jQuery library -->

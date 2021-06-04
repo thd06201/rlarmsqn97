@@ -46,7 +46,7 @@
 
 <div class="aa-header-top">
       <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top:0%;">
           <div class="col-md-12">
             <div class="aa-header-top-area">
               <!-- start header top left -->
@@ -100,7 +100,7 @@
 <c:if test="${member.verify == 9}">
 
 <div class="cellphone hidden-xs">
- <p><a href="/admin/index" style="position: relative; bottom: -4px;  font-size:19px;">관리자 화면 </a></p>
+ <p><a href="/admin/index2" style="position: relative; bottom: -4px;  font-size:19px;">관리자 화면 </a></p>
 </div>
 </c:if>
 
