@@ -187,42 +187,38 @@
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
+										<th>주문ID</th>
 										<th>이미지</th>
-										<th>이름</th>
-										<th>카테고리</th>
-										<th>가격</th>
+										<th>상품정보</th>
+										<th>상품가격</th>
 										<th>수량</th>
-										<th>등록날짜</th>
+										<th>총금액</th>
 
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
+										<th>주문ID</th>
 										<th>이미지</th>
-										<th>이름</th>
-										<th>카테고리</th>
-										<th>가격</th>
+										<th>상품정보</th>
+										<th>상품가격</th>
 										<th>수량</th>
-										<th>등록날짜</th>
+										<th>총금액</th>
 									</tr>
 								</tfoot>
 
 								<tbody>
-									<c:forEach items="${list}" var="list">
+									<c:forEach items="${orderView}" var="orderView">
 										<tr>
-											<td><fmt:formatDate value="${list.gdsDate}"
-													pattern="yyyy/MM/dd" var="datePath" /> <img
-												src='<c:url value="/resources/imgUpload/${datePath }/${list.gdsImg}"/>'
-												class="oriImg" /></td>
-											<td><a href="/admin/goods/view?n=${list.gdsNum}">${list.gdsName}</a>
-											</td>
-											<td>
-												<!--  ${list.cateCode}--> ${list.cateName}
-											</td>
-											<td><fmt:formatNumber value="${list.gdsPrice}"
-													pattern="###,###,###" /></td>
-											<td>${list.gdsStock}</td>
-											<td>${datePath}</td>
+										<td>${orderView.getOrderId()}</td>
+										<td>
+                                       <a href="#"><fmt:formatDate value="${orderView.gdsDate}" pattern="yyyy/MM/dd" var="datePath"/>
+                              		   <img src="<c:url value="/resources/imgUpload/${datePath}/${orderView.gdsImg}"/>" alt="img"></a>
+                              		   </td>
+										<td>${orderView.gdsName}</td>
+										<td><fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice}"/> 원</td>
+										<td>${orderView.cartStock}</td>
+										<td><fmt:formatNumber pattern="###,###,###" value="${orderView.amount}"/> 원</td>
 										</tr>
 									</c:forEach>
 

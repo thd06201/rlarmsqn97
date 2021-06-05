@@ -187,42 +187,32 @@
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>이미지</th>
-										<th>이름</th>
-										<th>카테고리</th>
+										<th>주문 번호</th>
+										<th>주문자</th>
+										<th>수령인</th>
+										<th>주소</th>
 										<th>가격</th>
-										<th>수량</th>
-										<th>등록날짜</th>
 
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
-										<th>이미지</th>
-										<th>이름</th>
-										<th>카테고리</th>
+										<th>주문 번호</th>
+										<th>주문자</th>
+										<th>수령인</th>
+										<th>주소</th>
 										<th>가격</th>
-										<th>수량</th>
-										<th>등록날짜</th>
 									</tr>
 								</tfoot>
 
 								<tbody>
-									<c:forEach items="${list}" var="list">
+									<c:forEach items="${orderList}" var="orderList">
 										<tr>
-											<td><fmt:formatDate value="${list.gdsDate}"
-													pattern="yyyy/MM/dd" var="datePath" /> <img
-												src='<c:url value="/resources/imgUpload/${datePath }/${list.gdsImg}"/>'
-												class="oriImg" /></td>
-											<td><a href="/admin/goods/view?n=${list.gdsNum}">${list.gdsName}</a>
-											</td>
-											<td>
-												<!--  ${list.cateCode}--> ${list.cateName}
-											</td>
-											<td><fmt:formatNumber value="${list.gdsPrice}"
-													pattern="###,###,###" /></td>
-											<td>${list.gdsStock}</td>
-											<td>${datePath}</td>
+											<td><a href="/admin/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></td>
+											<td>${orderList.userId}</td>
+											<td>${orderList.orderRec}</td>
+											<td>${orderList.userAddr1} ${orderList.userAddr2} ${orderList.userAddr3}</td>
+											<td><fmt:formatNumber pattern="###,###,###" value="${orderList.amount}"/> 원</td>
 										</tr>
 									</c:forEach>
 

@@ -1,6 +1,8 @@
 package com.kubg.domain;
 
-public class CuGoodsVO {
+import java.util.Date;
+
+public class CuGoodsViewVO {
 	
 	private int cuNum;
 	private String cuName;
@@ -8,16 +10,8 @@ public class CuGoodsVO {
 	private String cuPrice;
 	private String cuImg;
 	private String cuThumbImg;
+	private Date cuDate;
 	
-	
-	
-	
-	public String getCuThumbImg() {
-		return cuThumbImg;
-	}
-	public void setCuThumbImg(String cuThumbImg) {
-		this.cuThumbImg = cuThumbImg;
-	}
 	public int getCuNum() {
 		return cuNum;
 	}
@@ -48,6 +42,19 @@ public class CuGoodsVO {
 	public void setCuImg(String cuImg) {
 		this.cuImg = cuImg;
 	}
+	public String getCuThumbImg() {
+		return cuThumbImg;
+	}
+	public void setCuThumbImg(String cuThumbImg) {
+		this.cuThumbImg = cuThumbImg;
+	}
+	public Date getCuDate() {
+		return cuDate;
+	}
+	public void setCuDate(Date cuDate) {
+		this.cuDate = cuDate;
+	}
 	
 	
+
 }

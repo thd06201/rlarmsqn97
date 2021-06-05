@@ -21,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kubg.domain.CategoryVO;
 import com.kubg.domain.CuGoodsVO;
+import com.kubg.domain.CuGoodsViewVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.MemberVO;
+import com.kubg.domain.OrderListVO;
+import com.kubg.domain.OrderVO;
 import com.kubg.service.AdminService;
 import com.kubg.utils.UploadFileUtils;
 
@@ -108,7 +111,7 @@ public class AdminController {
 			 
 			 adminService.register2(vo);
 			
-			return "redirect:/admin/index";
+			return "redirect:/admin/index2";
 		} 
 	 
 	 
@@ -165,11 +168,6 @@ public class AdminController {
 	  return; 
 	 }
 	 
-	
-	
-	 
-	 
-	 
 	 //상품 목록
 	 @RequestMapping(value= "/goods/list", method = RequestMethod.GET)
 	 public void getGoodsList(Model model) throws Exception {
@@ -180,6 +178,16 @@ public class AdminController {
 		 
 	 }
 	 
+	//상품 목록2
+	@RequestMapping(value = "/goods/list2", method = RequestMethod.GET)
+	public void getCuGoodsList2(Model model) throws Exception {
+
+		List<CuGoodsViewVO> list2 = adminService.cugoodslist();
+
+		model.addAttribute("list2", list2);
+
+	}
+	 
 	// 상품 조회
 	 @RequestMapping(value = "/goods/view", method = RequestMethod.GET)
 	 public void getGoodsview(@RequestParam("n") int gdsNum, Model model) throws Exception {
@@ -188,6 +196,15 @@ public class AdminController {
 	  
 	  model.addAttribute("goods", goods);
 	 }
+
+	// 상품 조회2
+	@RequestMapping(value = "/goods/view2", method = RequestMethod.GET)
+	public void getCuGoodsview(@RequestParam("n") int cuNum, Model model) throws Exception {
+
+		CuGoodsViewVO cugoods = adminService.cugoodsView(cuNum);
+
+		model.addAttribute("cugoods", cugoods);
+	}
 	 
 	 //상품 수정
 	 @RequestMapping(value = "/goods/modify", method = RequestMethod.GET)
@@ -229,16 +246,64 @@ public class AdminController {
 	  
 	  adminService.goodsModify(vo);
 	  
-	  return "redirect:/admin/index";
+	  return "redirect:/admin/index2";
 	 }
 	 
-	// 상품 삭제
+	 //상품 수정2
+	 @RequestMapping(value = "/goods/modify2", method = RequestMethod.GET)
+	 public void getCuGoodsModify(@RequestParam("n") int cuNum, Model model) throws Exception {
+	  
+	  CuGoodsViewVO cugoods = adminService.cugoodsView(cuNum);
+	  model.addAttribute("cugoods",cugoods);
+	 }
+	 
+	// 상품 수정2
+	@RequestMapping(value = "/goods/modify2", method = RequestMethod.POST)
+	public String postCuGoodsModify(CuGoodsVO vo, MultipartFile file, HttpServletRequest req) throws Exception {
+
+		// 새로운 파일이 등록되었는지 확인
+		if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			// 기존 파일을 삭제
+			new File(uploadPath + req.getParameter("cuImg")).delete();
+			new File(uploadPath + req.getParameter("cuThumbImg")).delete();
+
+			// 새로 첨부한 파일을 등록
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(),
+					ymdPath);
+
+			vo.setCuImg(fileName);
+			vo.setCuThumbImg("s_" + fileName);
+
+		} else { // 새로운 파일이 등록되지 않았다면
+			// 기존 이미지를 그대로 사용
+			vo.setCuImg(req.getParameter("cuImg"));
+			vo.setCuThumbImg(req.getParameter("cuThumbImg"));
+
+		}
+
+		adminService.cugoodsModify(vo);
+
+		return "redirect:/admin/index2";
+	}
+	 
+	 // 상품 삭제
 	 @RequestMapping(value = "/goods/delete", method = RequestMethod.POST)
 	 public String postGoodsDelete(@RequestParam("n") int gdsNum) throws Exception {
 
 	  adminService.goodsDelete(gdsNum);
 	  
-	  return "redirect:/admin/index";
+	  return "redirect:/admin/index2";
+	 }
+	 
+	 // 상품 삭제2
+	 @RequestMapping(value = "/goods/delete2", method = RequestMethod.POST)
+	 public String postCuGoodsDelete(@RequestParam("n") int cuNum) throws Exception {
+
+	  adminService.cugoodsDelete(cuNum);
+	  
+	  return "redirect:/admin/index2";
 	 }
 	 
 	 //회원 목록
@@ -250,7 +315,26 @@ public class AdminController {
 		 model.addAttribute("member",member);
 		 
 	 }
+	/* 
+	// 주문 목록
+	 @RequestMapping(value = "/shop/orderList", method = RequestMethod.GET)
+	 public void getOrderList(Model model) throws Exception {
+	    
+	  List<OrderVO> orderList = adminService.orderList();
+	  
+	  model.addAttribute("orderList", orderList);
+	 }
+
+	 // 주문 상세 목록
+	 @RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
+	 public void getOrderList(@RequestParam("n") String orderId,
+	       OrderVO order, Model model) throws Exception {
+	  
+	  order.setOrderId(orderId);  
+	  List<OrderListVO> orderView = adminService.orderView(order);
+	  
+	  model.addAttribute("orderView", orderView);
+	 }
 	
-	
-	 
+	 */
 }

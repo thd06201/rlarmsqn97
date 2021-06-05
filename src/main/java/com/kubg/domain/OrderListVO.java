@@ -22,6 +22,16 @@ public class OrderListVO {
 	private int gdsPrice;
 	private int gdsStock;
 	
+	private Date gdsDate;
+	
+	
+	
+	public Date getGdsDate() {
+		return gdsDate;
+	}
+	public void setGdsDate(Date gdsDate) {
+		this.gdsDate = gdsDate;
+	}
 	public String getOrderId() {
 		return orderId;
 	}

@@ -210,7 +210,6 @@ public class ShopController {
 		}
 		
 		
-		
 		// 주문 페이지로 이동
 		@RequestMapping(value = "/shop/pay", method = {RequestMethod.GET, RequestMethod.POST})
 		public String getPay(int gdsNum, String stock, HttpServletRequest request) throws Exception {
@@ -270,8 +269,11 @@ public class ShopController {
 			return "member/shop/orderPage";
 		}
 		
-		
-		
+		//검색 결과 페이지 
+	    @RequestMapping(value = "/shop/cu", method = RequestMethod.GET)
+	    public String cu() throws Exception {
+	        return "/member/shop/cu";
+	    }
 		
 		
 

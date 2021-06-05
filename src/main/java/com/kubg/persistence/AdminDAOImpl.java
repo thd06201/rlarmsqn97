@@ -9,9 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.kubg.domain.CategoryVO;
 import com.kubg.domain.CuGoodsVO;
+import com.kubg.domain.CuGoodsViewVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
 import com.kubg.domain.MemberVO;
+import com.kubg.domain.OrderListVO;
+import com.kubg.domain.OrderVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{  
@@ -47,6 +50,18 @@ public class AdminDAOImpl implements AdminDAO{
 		return sql.selectList(namespace + ".goodslist");
 	}
 	
+	//상품목록2
+	@Override
+	public List<CuGoodsViewVO> cugoodslist() throws Exception {
+		return sql.selectList(namespace + ".cugoodslist");
+	}
+	
+	//상품조회2
+	@Override
+	public CuGoodsViewVO cugoodsView(int cuNum) throws Exception {
+		return sql.selectOne(namespace + ".cugoodsView" , cuNum);
+	}
+	
 	//상품조회
 	@Override
 	public GoodsViewVO goodsView(int gdsNum) throws Exception {
@@ -58,6 +73,12 @@ public class AdminDAOImpl implements AdminDAO{
 	public void goodsModify(GoodsVO vo) throws Exception {
 		sql.update(namespace + ".goodsModify", vo);
 	}
+
+	//상품 수정2
+	@Override
+	public void cugoodsModify(CuGoodsVO vo) throws Exception {
+		sql.update(namespace + ".cugoodsModify", vo);
+	}
 		
 	//상품 삭제
 	@Override
@@ -65,13 +86,32 @@ public class AdminDAOImpl implements AdminDAO{
 		sql.delete(namespace + ".goodsDelete", gdsNum);
 	}
 	
+	//상품 삭제2
+	@Override
+	public void cugoodsDelete(int cuNum) throws Exception {
+		sql.delete(namespace + ".cugoodsDelete", cuNum);
+	}
+		
+	
 	//회원목록
 	@Override
 	public List<MemberVO> goodsmember() throws Exception {
 		return sql.selectList(namespace + ".goodsmember");
 	}
 		
+	//주문 목록
+	@Override
+	public List<OrderVO> orderList() throws Exception {
+		return sql.selectList(namespace + ".orderList");
+	}
 	
+	//주문 목록
+	@Override
+	public List<OrderListVO> orderView(OrderVO order) throws Exception {
+		return sql.selectList(namespace + "orderView", order);
+	}
+		
+		
 
 	
 }

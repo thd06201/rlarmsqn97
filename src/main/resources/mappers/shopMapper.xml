@@ -82,7 +82,7 @@ select
 <select id="orderView" resultType="com.kubg.domain.OrderListVO">
  select
      o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate,
-      d.gdsNum, d.cartStock, d.gdsDate, d.gdsDate,
+      d.gdsNum, d.cartStock,
      g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
  from tbl_order o
          inner join tbl_order_details d
@@ -96,7 +96,7 @@ select
 <select id="getOrderViewsByUserId" resultType="com.kubg.domain.OrderListVO">
  select
      o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate,
-      d.gdsNum, d.cartStock, d.gdsDate,
+      d.gdsNum, d.cartStock,
      g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
  from tbl_order o
          inner join tbl_order_details d

@@ -27,7 +27,7 @@ VALUES (nextval(tbl_goods_seq), #{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock
         #{gdsImg}, #{gdsThumbImg})
 </insert>
 
-<!-- 상품 등록 -->
+<!-- 상품 등록2 -->
 <insert id="register2">
 INSERT INTO tbl_cu (cuNum, cuName, cuStock, cuPrice, cuImg, cuThumbImg)
 VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuThumbImg} )
@@ -35,13 +35,32 @@ VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuTh
 
 <!-- 상품 목록 --> 
 <select id="goodslist" resultType="com.kubg.domain.GoodsViewVO">
- select
-     g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate,
-     g.gdsImg, g.gdsThumbImg
-         from tbl_goods g
-             inner join goods_category c
-                 on g.cateCode = c.cateCode
+	select
+	g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock,
+	gdsDes, gdsImg, gdsDate,
+	g.gdsImg, g.gdsThumbImg
+	from tbl_goods g
+	inner join goods_category c
+	on g.cateCode = c.cateCode
 </select>
+
+<!-- 상품 목록 2--> 
+<select id="cugoodslist" resultType="com.kubg.domain.CuGoodsViewVO">
+	select
+	cuNum, cuName, cuPrice, cuStock, cuImg, cuDate,
+	cuImg, cuThumbImg
+	from tbl_cu
+</select>
+
+<!-- 상품 조회2 -->
+<select id="cugoodsView" resultType="com.kubg.domain.CuGoodsViewVO">
+select
+	cuNum, cuName, cuPrice, cuStock, cuImg, cuDate,
+	cuImg, cuThumbImg
+	from tbl_cu
+    where cuNum = #{cuNum}
+</select>
+
 
 
 <!-- 상품 조회 + 카테고리 조인-->
@@ -71,6 +90,19 @@ VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuTh
      where gdsNum = ${gdsNum}
 </update>
 
+<!-- 상품 수정2 -->
+<update id="cugoodsModify">
+ update tbl_cu
+     set
+         cuName = #{cuName},
+         cuPrice = #{cuPrice},
+         cuStock = #{cuStock},
+         cuImg = #{cuImg},
+         cuThumbImg = #{cuThumbImg}
+        
+     where cuNum = ${cuNum}
+</update>
+
 <!-- 상품 삭제 -->
 <delete id="goodsDelete">
  delete
@@ -78,11 +110,43 @@ VALUES (nextval(tbl_cu_seq), #{cuName}, #{cuStock}, #{cuPrice}, #{cuImg}, #{cuTh
  where gdsNum = #{gdsNum}
 </delete>
 
+<!-- 상품 삭제2 -->
+<delete id="cugoodsDelete">
+ delete
+     from tbl_cu
+ where cuNum = #{cuNum}
+</delete>
+
+
 <!-- 회원 목록 -->
 <select id="goodsmember" resultType="com.kubg.domain.MemberVO">
  select
   userID,userName,userPhon,regiDate,userBi,userEmail
     from tbl_member
+</select>
+
+<!-- 모든 유저의 주문 목록 -->
+<select id="orderList" resultType="com.kubg.domain.OrderVO">
+ select
+     orderId, userId, orderRec,
+     userAddr1, userAddr2, userAddr3,
+     orderPhon, amount, orderDate
+ from tbl_order
+</select>
+
+<!-- 특정 주문 목록 -->
+<select id="orderView" resultType="com.kubg.domain.OrderListVO">
+ select
+     o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate, 
+     d.gdsNum, d.cartStock, d.gdsDate, 
+     g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
+ from tbl_order o
+         inner join tbl_order_details d
+             on o.orderId = d.orderId
+         inner join tbl_goods g
+             on d.gdsNum = g.gdsNum
+     where o.userId = #{userId}
+     	
 </select>
 
 

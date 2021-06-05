@@ -103,7 +103,7 @@
                               <table class="table">
                                  <thead>
                                     <tr>
-                                       <th>주문ID</th>
+                                       <th>주문번호</th>
                                        <th>이미지</th>
                                        <th>상품정보</th>
                                        <th>가격</th>
@@ -123,7 +123,7 @@
                                     <tr>
                                        <td>${orderView.getOrderId()}</td>
                                        <td>
-                                       <a href="#"><fmt:formatDate value="${orderView.orderDate}" pattern="yyyy/MM/dd" var="datePath"/>
+                                       <a href="#"><fmt:formatDate value="${orderView.gdsDate}" pattern="yyyy/MM/dd" var="datePath"/>
                               		   <img src="<c:url value="/resources/imgUpload/${datePath}/${orderView.gdsImg}"/>" alt="img"></a>
                               		   </td>
                                        <td>${orderView.gdsName}</td> <!-- 상품이름 -->
