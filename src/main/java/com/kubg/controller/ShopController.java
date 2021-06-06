@@ -140,9 +140,10 @@ public class ShopController {
 		
 		// 장바구니에서 주문
 		@RequestMapping(value = "/cartList", method = RequestMethod.POST)
-		public String order(HttpSession session, String checkedListStr, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+		public String order(HttpSession session, String cartNum, String gdsNumA, String gdsNameA, String gdsPriceA, String cartStockA,
+				OrderVO order, OrderDetailVO orderDetail, Model model) throws Exception {
 		 
-		 MemberVO member = (MemberVO)session.getAttribute("member");  
+		 MemberVO member = (MemberVO)session.getAttribute("member");
 		 String userId = member.getUserId();
 		 
 		 Calendar cal = Calendar.getInstance();
@@ -150,31 +151,36 @@ public class ShopController {
 		 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
 		 String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
 		 String subNum = "";
+		 String orderId = "";
 		 
-		 for(int i = 1; i <= 6; i ++) {
-		  subNum += (int)(Math.random() * 10);
-		 }
-		 
-		 String orderId = ymd + "_" + subNum;
-		 
-		 order.setOrderId(orderId);
-		 order.setUserId(userId);
-		  
-		 service.orderInfo(order);
-		 
-		 orderDetail.setOrderId(orderId);   
-		 service.orderInfo_Details(orderDetail);
-	
-		 System.out.println("checkedListStr: " + checkedListStr);
-		 String[] checkedSplit = checkedListStr.split(",");
+		 String[] gdnsNumASplit = gdsNumA.split(",");
+		 String[] gdsNameASplit = gdsNameA.split(",");
+		 String[] gdsPriceAASplit = gdsPriceA.split(",");
+		 String[] cartStockAASplit = cartStockA.split(",");
+		 String[] checkedSplit = cartNum.split(",");
 		 int[] checkedList = new int[checkedSplit.length];
 		 for (int i = 0; i < checkedSplit.length; i++) {
+			 
+			 subNum += (int)(Math.random() * 10);
+			 orderId = ymd + "_" + subNum;
+			 
+			 order.setOrderId(orderId + i);
+			 
+			 order.setUserId(userId);
+			 order.setGdsNum(Integer.valueOf(gdnsNumASplit[i]));
+			 order.setGdsPrice(Integer.valueOf(gdsPriceAASplit[i]));
+			 order.setGdsStock(Integer.valueOf(cartStockAASplit[i]));
+			 order.setGdsName(gdsNameASplit[i]);
 			 checkedList[i] = Integer.parseInt(checkedSplit[i]);
+			 
+			 service.orderInfo(order);
 		 }
 		 
 		 service.cartDelete(userId, checkedList);
 		 
-		 return "redirect:/shop/orderList";  
+		 model.addAttribute("OrderView", order);
+		 
+		 return "member/shop/payComplete";  
 		}
 		
 		// 주문 목록
@@ -182,6 +188,7 @@ public class ShopController {
 		public String getOrderList(HttpSession session, OrderVO order, Model model) throws Exception {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("member");
+		 
 		 String userId = member.getUserId();
 		 
 		 order.setUserId(userId);
@@ -221,8 +228,6 @@ public class ShopController {
 		}
 		
 		
-		
-		
 		@RequestMapping(value="/shop/logPayment", method = {RequestMethod.GET, RequestMethod.POST})
 		public String logPayment(OrderVO order, @RequestParam("gdsName") String gdsName ,HttpServletRequest request, Model model) throws Exception {
 			
@@ -236,9 +241,9 @@ public class ShopController {
 			
 			service.orderInfo(order);
 
-			model.addAttribute("gdsName", gdsName);
+			model.addAttribute("OrderView", order);
 			
-			return "member/shop/orderPage";
+			return "member/shop/payComplete";
 		}
 		
 		
@@ -274,11 +279,4 @@ public class ShopController {
 	    public String cu() throws Exception {
 	        return "/member/shop/cu";
 	    }
-		
-		
-
-	
 }
-
-
-

@@ -102,13 +102,6 @@
                   
                   	<form role="form" method="post" autocomplete="off">
                   	
-                  	<input type="hidden" name="gdsNum" value="${productdetail.gdsNum}"/>
-                  	<input type="hidden" name="gdsImg" value="${productdetail.gdsImg}"/>
-                  	<input type="hidden" name="gdsDate" value="${datePath}"/>
-                  	
-                  	
-                  	
-                  	
                      <!-- 주문자 -->
                     <div class="panel panel-default aa-checkout-coupon">
                       <div class="panel-heading">
@@ -305,10 +298,10 @@
                                 <input type="text" value="주문상품 : ${productdetail.gdsName}"class="aa-coupon-code" > 
                                 <input type="text" value="가격 : ${productdetail.gdsPrice}"class="aa-coupon-code" > 
                                 <input type="text" value="수량 : ${stock}"class="aa-coupon-code" > 
+                                <input type="hidden" name="gdsNum" value="${param.gdsNum}">
                                 <input type="hidden" name="gdsName" value="${productdetail.gdsName}">
+                                <input type="hidden" name="gdsPrice" value="${productdetail.gdsPrice}">
                                 <input type="hidden" name="gdsStock" value="${stock}">
-                                
-                                
                                 
                              </div>                             
                             </div>                            
@@ -351,9 +344,10 @@
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
                                 <input type="text" value="결제수단 선택" style="background-color: #e2e2e2;">
-                                 <div class="aa-payment-method">                    
+                                 <div class="aa-payment-method">  
+                                 <!--                  
                     <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
+                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>-->  
                     <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
                     <input type="submit" value="결제하기" class="aa-browse-btn">                
                   </div>

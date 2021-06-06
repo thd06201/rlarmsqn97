@@ -37,8 +37,6 @@ public interface ShopDAO {
 
 	public List<OrderVO> getOrdersByUserId(String userId);
 	
-	
-	
 	//장바구니 결제
 	public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception;
 	

@@ -58,8 +58,8 @@ select
  
 <!-- 주문 정보 -->
 <insert id="orderInfo">
- insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
-     values (#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+ insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount, gdsNum, gdsName, gdsPrice, gdsStock)
+     values (#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount}, #{gdsNum}, #{gdsName}, #{gdsPrice}, #{gdsStock})
 </insert>
 
 

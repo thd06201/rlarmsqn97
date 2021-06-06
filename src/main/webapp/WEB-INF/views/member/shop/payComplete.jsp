@@ -64,19 +64,17 @@
   <section id="aa-error">
     <div class="container">
       <div class="row">
-        <form role="form" method="post" autocomplete="off">
-          <input type="hidden" name="gdsNum" value="${productdetail.gdsNum}"/>
-      
         <div class="col-md-12">
           <div class="aa-error-area">
-            <h2>404</h2>
-            
-            <span>고객님!! ${gdsName} 주문이 완료되었습니다!!</span>
-            <p>Sorry this content has been moved Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, amet perferendis, nemo facere excepturi quis.</p>
-            <a href="/shop/orderPage"> 주문 상세 보러가기</a>
+            <div style="font-size:50px; color:#FF1493;"><strong>주문이 완료되었습니다!! </strong></div>
+            <br><br>
+            <span>주문번호 : ${OrderView.orderId}</span>
+            <span>수령인 : ${OrderView.orderRec}</span>
+            <span>주소 : ${OrderView.userAddr1} ${OrderView.userAddr2} ${OrderView.userAddr3}</span>
+            <span>가격 : ${OrderView.amount} 원 </span>           
+            <a href="/shop/orderView"> 주문 상세 보러가기</a>
           </div>
         </div>
-        </form>
       </div>
     </div>
   </section>

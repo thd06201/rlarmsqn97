@@ -13,6 +13,10 @@ public class OrderVO {
 	private String orderPhon;
 	private int amount;
 	private Date orderDate;
+	private int gdsNum;
+	private String gdsName;
+	private int gdsPrice;
+	private int gdsStock;
 	
 	public Date getOrderDate() {
 		return orderDate;
@@ -68,6 +72,28 @@ public class OrderVO {
 	public void setOrderPhon(String orderPhon) {
 		this.orderPhon = orderPhon;
 	}
-	
-			
+	public int getGdsNum() {
+		return gdsNum;
+	}
+	public void setGdsNum(int gdsNum) {
+		this.gdsNum = gdsNum;
+	}
+	public String getGdsName() {
+		return gdsName;
+	}
+	public void setGdsName(String gdsName) {
+		this.gdsName = gdsName;
+	}
+	public int getGdsPrice() {
+		return gdsPrice;
+	}
+	public void setGdsPrice(int gdsPrice) {
+		this.gdsPrice = gdsPrice;
+	}
+	public int getGdsStock() {
+		return gdsStock;
+	}
+	public void setGdsStock(int gdsStock) {
+		this.gdsStock = gdsStock;
+	}
 }
