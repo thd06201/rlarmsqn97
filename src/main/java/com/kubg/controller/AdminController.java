@@ -315,16 +315,18 @@ public class AdminController {
 		 model.addAttribute("member",member);
 		 
 	 }
-	/* 
+	
 	// 주문 목록
 	 @RequestMapping(value = "/shop/orderList", method = RequestMethod.GET)
-	 public void getOrderList(Model model) throws Exception {
+	 public String getOrderList(Model model) throws Exception {
 	    
 	  List<OrderVO> orderList = adminService.orderList();
 	  
 	  model.addAttribute("orderList", orderList);
+	  
+	  return "admin/shop/orderList";
 	 }
-
+	 /*
 	 // 주문 상세 목록
 	 @RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
 	 public void getOrderList(@RequestParam("n") String orderId,

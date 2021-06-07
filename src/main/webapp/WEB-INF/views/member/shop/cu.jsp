@@ -1,16 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
-	<title>Drag</title>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">    
+  <title>Daily Shop | Home</title>
+
+  <!-- Font awesome -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.css"/>'>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.css"/>'>
+    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.smartmenus.bootstrap.css"/>'>
+    <!-- Product view slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.simpleLens.css"/>'>
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/slick.css"/>'>
+    <!-- price picker slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/nouislider.css"/>'>
+    <!-- Theme color -->
+    <link rel="stylesheet"  href='<c:url value="/resources/css/theme-color/default-theme.css"/>'>
+    <!-- Top Slider CSS -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sequence-theme.modern-slide-in.css"/>'>
+    <!-- Main style sheet -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/style.css"/>'>
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+
+<meta charset="utf-8">
 
 	<style type="text/css">
 		#flower-list {
 			float: left;
 			width: 150px;
-			height: 500px;
+			height: 700px;
 			border: 3px solid green;
 			text-align: center;
 		}
@@ -19,8 +47,8 @@
 			margin: 0 10px 0 10px;
 			float: left;
 
-			width: 500px;
-			height: 500px;
+			width: 700px;
+			height: 700px;
 			border: 3px solid brown;
 		}
 
@@ -30,6 +58,12 @@
 		}
 	</style>
 </head>
+  <body> 
+	
+<div>
+<%@ include file="../../include/header.jsp" %>
+</div>
+
 <body>
 <!-- 꽃 목록 -->
 <div id="flower-list">
@@ -182,5 +216,11 @@
 		document.getElementById('flower-box').style.border = "3px solid " + this.value;
 	});
 </script>
+
+
+
+<div>
+<%@ include file="../../include/footer.jsp" %>
+</div>
 </body>
 </html>

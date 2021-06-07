@@ -1,13 +1,82 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 수정</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+
+<title>게시물 작성</title>
+
+
+  <!-- Font awesome -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.css"/>'>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.css"/>'>
+    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.smartmenus.bootstrap.css"/>'>
+    <!-- Product view slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.simpleLens.css"/>'>
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/slick.css"/>'>
+    <!-- price picker slider -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/nouislider.css"/>'>
+    <!-- Theme color -->
+    <link rel="stylesheet"  href='<c:url value="/resources/css/theme-color/default-theme.css"/>'>
+    <!-- Top Slider CSS -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sequence-theme.modern-slide-in.css"/>'>
+    <!-- Main style sheet -->
+    <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/style.css"/>'>
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+
+
 </head>
 <body>
+<script src="/resources/ckeditor/ckeditor.js"></script>
+<div id="header">
+<jsp:include page="../board/include/header.jsp"></jsp:include>
+</div>
+
+<!-- catg header banner section -->
+  <section id="aa-catg-head-banner">
+   <img src="/resources/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <div class="aa-catg-head-banner-area">
+     <div class="container">
+      <div class="aa-catg-head-banner-content">
+        <h2>Review</h2>
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>                   
+          <li class="active">Review</li>
+        </ol>
+      </div>
+     </div>
+   </div>
+  </section>
+  <!-- / catg header banner section -->
+
+
+
+
+
+ <c:if test="${member == null }">
+ <script>
+        alert("로그인 후 이용해 주세요.");
+        alert("로그인 화면으로 이동하시겠습니까?");
+     	window.location.href = "/member/signin";
+ </script>
+ </c:if>
+ 
+ <c:if test="${member != null}">
+
+<div style="position: relative; right: -320px;">
+<div class="col-lg-8">
 
 <form method="post">
 	<label>제목</label>
@@ -16,11 +85,37 @@
 	<label>작성자</label>
 	<input type="text" name="userId" value="${view.userId}" /><br/>
 	
+	<label>상품</label>
+	<select name="gdsNum" >
+				    <option value="none">=== 상품 ===</option>
+					<c:forEach items="${OrderList}" var="List">
+					    <option value="${List.getGdsNum() }">${List.getGdsNum() }</option>
+					</c:forEach>
+ 	</select></br>	
+	
 	<label>내용</label>
 	<textarea rows="5" cols="50" name="content" >${view.content}</textarea><br/>
+	<script>
+	 var ckeditor_config = {
+	   resize_enaleb : false,
+	   enterMode : CKEDITOR.ENTER_BR,
+	   shiftEnterMode : CKEDITOR.ENTER_P,
+	   filebrowserUploadUrl : "/admin/goods/ckUpload"
+	 };
+	 
+	 CKEDITOR.replace("content", ckeditor_config);
+	</script>
+	
 	
 	<button type="submit">수정완료</button>
 </form>
+</div>
+</div>
+</c:if>
+
+<div id="footer">
+<jsp:include page="../board/include/footer.jsp"></jsp:include>
+</div>
 
 </body>
 </html>

@@ -212,9 +212,8 @@
 										<tr>
 										<td>${orderView.getOrderId()}</td>
 										<td>
-                                       <a href="#"><fmt:formatDate value="${orderView.gdsDate}" pattern="yyyy/MM/dd" var="datePath"/>
-                              		   <img src="<c:url value="/resources/imgUpload/${datePath}/${orderView.gdsImg}"/>" alt="img"></a>
-                              		   </td>
+                                       		${orderView.gdsName}
+                                       </td>
 										<td>${orderView.gdsName}</td>
 										<td><fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice}"/> 원</td>
 										<td>${orderView.cartStock}</td>

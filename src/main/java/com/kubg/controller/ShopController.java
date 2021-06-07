@@ -56,27 +56,39 @@ public class ShopController {
         return "/member/shop/Search";
     }
 	
-	
-	
 	//카테고리별 상품 리스트
 	@RequestMapping(value= "/shop/flower", method = RequestMethod.GET)
 	public String getList(@RequestParam("c") int cateCode, Model model) throws Exception {
 		List<GoodsViewVO> list = service.list(cateCode);
 		
 		model.addAttribute("list", list);
-		
+	
 		return "/member/shop/flower";
 	}
 
+	
+	
 	// 상품디테일
 	@RequestMapping(value = "/shop/productdetail", method = RequestMethod.GET)
-	public String getProductDetail(@RequestParam("n") int gdsNum, Model model) throws Exception {
+	public String getProductDetail(HttpSession session,@RequestParam("n") int gdsNum, Model model) throws Exception {
 
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = null;
+
+		if (member != null) {
+			userId = member.getUserId();
+		}
+		
+		model.addAttribute("cartList", service.cartList(userId));
+		
 		GoodsViewVO productdetail = service.goodsView(gdsNum);
 		model.addAttribute("productdetail", productdetail);
 	
 		return "/member/shop/productdetail";
 	}
+
+	
+
 	
 	// 카트 담기
 	@ResponseBody
@@ -227,7 +239,7 @@ public class ShopController {
 			return "/member/shop/pay";
 		}
 		
-		
+		//바로 결제의 주문정보 내역
 		@RequestMapping(value="/shop/logPayment", method = {RequestMethod.GET, RequestMethod.POST})
 		public String logPayment(OrderVO order, @RequestParam("gdsName") String gdsName ,HttpServletRequest request, Model model) throws Exception {
 			
@@ -274,9 +286,18 @@ public class ShopController {
 			return "member/shop/orderPage";
 		}
 		
-		//검색 결과 페이지 
+		//커스터 마이징
 	    @RequestMapping(value = "/shop/cu", method = RequestMethod.GET)
 	    public String cu() throws Exception {
 	        return "/member/shop/cu";
 	    }
+	    
+	  //커스터 마이징
+	    @RequestMapping(value = "/shop/cubefore", method = RequestMethod.GET)
+	    public void cubefore() throws Exception {
+
+	    }
+	    
+	  
+	    
 }

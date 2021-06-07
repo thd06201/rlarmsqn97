@@ -46,10 +46,10 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Review</h2>
+        <h2>Q&A</h2>
         <ol class="breadcrumb">
           <li><a href="/">Home</a></li>                   
-          <li class="active">Cart</li>
+          <li class="active">Q&A</li>
         </ol>
       </div>
      </div>
@@ -109,14 +109,14 @@
 <!--  <div style="position: relative; right: -500px;" class="page-header" >		-->
 <div>
 <c:if test="${page.prev}">
- [ <a href="listPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]
+ [ <a href="QAlistPageSearch?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]
 </c:if>
 
 <c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
  <span>
  
   <c:if test="${select != num}">
-   <a href="listPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
+   <a href="QAlistPageSearch?num=${num}${page.searchTypeKeyword}">${num}</a>
   </c:if>    
   
   <c:if test="${select == num}">
@@ -127,7 +127,7 @@
 </c:forEach>
 
 <c:if test="${page.next}">
- [ <a href="listPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]
+ [ <a href="QAlistPageSearch?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]
 </c:if>
 </div>
 </div>
@@ -151,7 +151,7 @@
   let searchType = document.getElementsByName("searchType")[0].value;
   let keyword =  document.getElementsByName("keyword")[0].value;
 	
-  location.href = "listPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+  location.href = "QAlistPageSearch?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
  
  };
 </script>

@@ -11,6 +11,7 @@ public class BoardVO {
 	private int gdsNum;
 	private Date regDate;
 	private int viewCnt;
+	
 	public int getBno() {
 		return bno;
 	}

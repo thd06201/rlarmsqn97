@@ -50,10 +50,10 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Review</h2>
+        <h2>Q&A</h2>
         <ol class="breadcrumb">
           <li><a href="/">Home</a></li>                   
-          <li class="active">Review</li>
+          <li class="active">Q&A</li>
         </ol>
       </div>
      </div>
@@ -61,73 +61,34 @@
   </section>
   <!-- / catg header banner section -->
 
+	<c:if test="${member == null }">
+		<script>
+			alert("로그인 후 이용해 주세요.");
+			alert("로그인 화면으로 이동하시겠습니까?");
+			window.location.href = "/member/signin";
+		</script>
+	</c:if>
 
-
-
-
- <c:if test="${member == null }">
- <script>
-        alert("로그인 후 이용해 주세요.");
-        alert("로그인 화면으로 이동하시겠습니까?");
-     	window.location.href = "/member/signin";
- </script>
- </c:if>
- 
- 
- 
- <!--  
- <section class="replyForm">
-  <form role="form" method="post" autocomplete="off">
-   <div class="input_area">
-    <textarea name="repCon" id="repCon"></textarea>
-   </div>
-   
-   <div class="input_area">
-    <button type="submit" id="reply_btn">소감 남기기</button>
-   </div>
-   
-  </form>
- </section>
- -->
- 
 
 <c:if test="${member != null}">
 
 <div style="position: relative; right: -320px;">
 <div class="col-lg-8">
 
-<form role="form" method="post" autocomplete="off">
-
 	<label>제목</label>
-	<input type="text" name="title" /><br/>
-	
-	<label>작성자</label>
-	<input type="text" name="writer" value="${sessionScope.member.getUserId() }"  /><br/>
-	
-	<label>상품</label>
-	<select name="gdsNum" >
-				    <option value="none">=== 상품 ===</option>
-					<c:forEach items="${OrderList}" var="List">
-					    <option value="${List.getGdsNum() }">${List.getGdsNum() }</option>
-					</c:forEach>
- 	</select></br>	
-	
-	<label>내용</label>
-	<textarea rows="5" cols="50" name="content"></textarea>
-	
-	<script>
- var ckeditor_config = {
-   resize_enaleb : false,
-   enterMode : CKEDITOR.ENTER_BR,
-   shiftEnterMode : CKEDITOR.ENTER_P,
-   filebrowserUploadUrl : "/admin/goods/ckUpload"
- };
- 
- CKEDITOR.replace("content", ckeditor_config);
-</script>
-	
-	<button type="submit">작성</button>
-</form>
+${view.title}<br />
+
+<label>작성자</label>
+${view.userId}<br />
+
+<label>내용</label><br />
+${view.content}<br />
+
+<div>
+<button type="submit"><a href="QAmodify?bno=${view.bno}">게시물 수정</a></button>
+<button type="submit"><a href="delete?bno=${view.bno}">게시물 삭제</a></button>
+</div>
+
 </div>
 </div>
 </c:if>

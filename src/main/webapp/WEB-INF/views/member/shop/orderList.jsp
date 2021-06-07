@@ -69,9 +69,10 @@
       
         <div class="col-md-12">
           <div class="aa-error-area">
-            <div style="font-size:50px; color:#FF1493;"> <strong>주문이 완료되었습니다!! </strong></div>
+          
+          <c:forEach items="${orderList}" var="orderList">
+            <div style="font-size:50px; color:#FF1493;"> <strong> 고객님, 주문이 완료되었습니다!! </strong></div>
             
-            <c:forEach items="${orderList}" var="orderList">
             <br><br>
             <span>주문번호 : ${orderList.orderId}</span>
             <span>수령인 : ${orderList.orderRec}</span>

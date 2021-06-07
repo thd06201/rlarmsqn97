@@ -50,10 +50,10 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Review</h2>
+        <h2>Q&A</h2>
         <ol class="breadcrumb">
           <li><a href="/">Home</a></li>                   
-          <li class="active">Review</li>
+          <li class="active">Q&A</li>
         </ol>
       </div>
      </div>
@@ -73,60 +73,22 @@
  </script>
  </c:if>
  
- 
- 
- <!--  
- <section class="replyForm">
-  <form role="form" method="post" autocomplete="off">
-   <div class="input_area">
-    <textarea name="repCon" id="repCon"></textarea>
-   </div>
-   
-   <div class="input_area">
-    <button type="submit" id="reply_btn">소감 남기기</button>
-   </div>
-   
-  </form>
- </section>
- -->
- 
-
-<c:if test="${member != null}">
+ <c:if test="${member != null}">
 
 <div style="position: relative; right: -320px;">
 <div class="col-lg-8">
 
-<form role="form" method="post" autocomplete="off">
-
+<form method="post">
 	<label>제목</label>
-	<input type="text" name="title" /><br/>
+	<input type="text" name="title" value="${view.title}" /><br/>
 	
 	<label>작성자</label>
-	<input type="text" name="writer" value="${sessionScope.member.getUserId() }"  /><br/>
-	
-	<label>상품</label>
-	<select name="gdsNum" >
-				    <option value="none">=== 상품 ===</option>
-					<c:forEach items="${OrderList}" var="List">
-					    <option value="${List.getGdsNum() }">${List.getGdsNum() }</option>
-					</c:forEach>
- 	</select></br>	
+	<input type="text" name="userId" value="${view.userId}" /><br/>
 	
 	<label>내용</label>
-	<textarea rows="5" cols="50" name="content"></textarea>
+	<textarea rows="5" cols="50" name="content" >${view.content}</textarea><br/>
 	
-	<script>
- var ckeditor_config = {
-   resize_enaleb : false,
-   enterMode : CKEDITOR.ENTER_BR,
-   shiftEnterMode : CKEDITOR.ENTER_P,
-   filebrowserUploadUrl : "/admin/goods/ckUpload"
- };
- 
- CKEDITOR.replace("content", ckeditor_config);
-</script>
-	
-	<button type="submit">작성</button>
+	<button type="submit">수정완료</button>
 </form>
 </div>
 </div>

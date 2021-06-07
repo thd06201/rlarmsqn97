@@ -140,14 +140,6 @@
 				});
 			 </script>
                       <a class="aa-add-to-cart-btn" onclick="$('#numForm').submit();" }>바로구매</a>
-                      <c:if test="${member == null }">
-                      <script>
-                             alert("로그인 후 이용해 주세요.");
-                             alert("로그인 화면으로 이동하시겠습니까?");
-                          	window.location.href = "/member/signin";
-                      </script>
-                      </c:if>
-                      
                       
                     </div>
                   </div>

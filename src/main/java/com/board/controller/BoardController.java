@@ -93,7 +93,7 @@ public class BoardController {
 	public String getDelete(@RequestParam("bno") int bno , Model model) throws Exception{
 		
 		service.delete(bno);
-		return "redirect:/board/list";
+		return "redirect:/board/listPageSearch?num=1";
 	}
 	
 	//게시물 목록 + 페이징 추가 

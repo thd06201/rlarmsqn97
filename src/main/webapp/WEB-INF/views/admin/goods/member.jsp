@@ -170,11 +170,7 @@
                                     <tbody>
 		           <c:forEach items="${member}" var="member">
                                         <tr>
-                                        <!--  
-                                        <td><a href="/admin/goods/view2?n=${list2.cuNum}">${list2.cuName}</a>
-											</td>
-											<a href="/admin/goods/view2?n=${.userId}">${member.userId}</a>
-                                         -->
+                                       
                                             <td>${member.userId}</td>
                                             <td>${member.userName}</td>
                                             <td>${member.userBi}</td>

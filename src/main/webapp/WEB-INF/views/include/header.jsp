@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -9,25 +10,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">    
   <title>Flower Shop | Home</title>
 
-<!-- Font awesome -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.css"/>'>
-    <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.css"/>'>
-    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.smartmenus.bootstrap.css"/>'>
-    <!-- Product view slider -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.simpleLens.css"/>'>
-    <!-- slick slider -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/slick.css"/>'>
-    <!-- price picker slider -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/nouislider.css"/>'>
-    <!-- Theme color -->
     <link rel="stylesheet"  href='<c:url value="/resources/css/theme-color/default-theme.css"/>'>
-    <!-- Top Slider CSS -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sequence-theme.modern-slide-in.css"/>'>
-    <!-- Main style sheet -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/style.css"/>'>
-    <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
@@ -46,12 +37,16 @@
   <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
   
+  
+  
    <!-- Start header section -->
   <header id="aa-header">
+  
  
  <div>
 <%@ include file="nav.jsp" %>
 </div>
+  
   
 
 <!-- start header bottom  -->
@@ -62,14 +57,14 @@
         <div class="aa-header-bottom-area">
           <!-- logo  -->
             <div class wrapper="aa-logo">
-            <div style="position: relative;  right: -420px; bottom:-120px;">
+            <div style="position: relative;  right: -520px; bottom:-120px;">
             <!-- Text based logo -->
             <a href="/"><img src="/resources/img/logo.jpg" alt="img"></a>
            </div>
               </div>
               <!-- / logo  -->
           
-          <div style="position: relative; bottom: 65px; left: -200px; "  > 
+          <div style="position: relative; bottom: -15px; left: -200px; "  > 
 			<form>
  				 <select name="kind" >
 				    <option value="none">=== 종류별 ===</option>
@@ -79,7 +74,7 @@
  				 </select>
 			</form>
 		  </div>
-		  <div style="position: relative; bottom: 60px; left: -200px; "  > 
+		  <div style="position: relative; bottom: -20px; left: -200px; "  > 
 			<form>
  				 <select name="price" >
 				    <option value="none">=== 가격별 ===</option>
@@ -90,9 +85,9 @@
  				 </select>
 			</form>
 		  </div>
-	      <input type=button style="position: relative; WIDTH: 46pt; HEIGHT: 37pt; bottom: 110px; right: 50px; background-color:#FF1493; color:white" value="검색">
+	      <input type=button style="position: relative; WIDTH: 46pt; HEIGHT: 37pt; bottom: 30px; right: 50px; background-color:#FF1493; color:white" value="검색">
 
-			<div style="position: relative; bottom: 80px; right: -300px; " class="aa-cartbox" > 
+			<div style="position: relative; bottom: 1px; right: -300px; " class="aa-cartbox" > 
           <div class="aa-cartbox">
                 <a class="aa-cart-link" href="#">
                   <span class="fa fa-shopping-basket"></span>
@@ -101,13 +96,17 @@
                 </a>
                 <div class="aa-cartbox-summary">
                   <ul>
+					<c:forEach items="${cartList}" var="cartList">
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="/resources/img/woman-small-1.jpg" alt="img"></a>
+                    <fmt:formatDate value="${cartList.gdsDate}" pattern="yyyy/MM/dd" var="datePath" />
+                      <a class="aa-cartbox-img" href="#"><img src="<c:url value="/resources/imgUpload/${datePath}/${cartList.gdsImg}"/>" alt="img"></a>
                       <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
+                      
+                        <h4><a href="#">${cartList.gdsName}</a></h4>
+                        <p>${cartList.cartStock} x ${cartList.gdsPrice}</p>
                       </div>
                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                    
                     </li>
                                    
                     <li>
@@ -115,16 +114,17 @@
                         Total
                       </span>
                       <span class="aa-cartbox-total-price">
-                        $500
+                        <fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" />
                       </span>
                     </li>
+                    </c:forEach>
                   </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
+                  <a class="aa-cartbox-checkout aa-primary-btn" href="/shop/cartList">Checkout</a>
                 </div>
               </div>        
               </div>
               
-              <div style="position: relative; bottom: 90px; right: -300px; " class="aa-search-box" > 
+              <div style="position: relative; bottom: 10px; right: -300px; " class="aa-search-box" > 
              <form method="POST" action="/shop/productSearch" id ="search" name="search">
               <div class="aa-search-box">
               	
@@ -162,7 +162,7 @@
           <!-- Left nav -->
              <ul class="nav navbar-nav">
           	<li style="margin-left: 100px;"><a href="/">HOME</a></li>
-            <li style="margin-left: 200px;"><a href="cu">CustoMize</a></li>
+            <li style="margin-left: 200px;"><a href="/shop/cu">CustoMize</a></li>
 
             <li style="margin-left: 200px;"><a href="/shop/flower?c=101&c=102">꽃다발 <span class="caret"></span></a>
               <ul class="dropdown-menu">                
@@ -170,10 +170,10 @@
                 <li><a href="/shop/flower?c=102">대형꽃다발</a></li>
               </ul>
             
-            <li style="margin-left: 200px;"><a href="/shop/flower?c=200">꽃바구니 <span class="caret"></span></a>
+            <li style="margin-left: 200px;"><a href="/shop/flower?c=201&c=202">꽃바구니 <span class="caret"></span></a>
               <ul class="dropdown-menu">                              
-                <li><a href="/shop/list?c=201">일반꽃바구니</a></li>              
-                <li><a href="/shop/list?c=202">대형꽃바구니</a></li>
+                <li><a href="/shop/flower?c=201">일반꽃바구니</a></li>              
+                <li><a href="/shop/flower?c=202">대형꽃바구니</a></li>
               </ul>
             </li>
           </ul>
