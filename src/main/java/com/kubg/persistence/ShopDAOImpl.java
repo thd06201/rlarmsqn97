@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.board.domain.BoardVO;
 import com.kubg.domain.CartListVO;
 import com.kubg.domain.CartVO;
 import com.kubg.domain.GoodsVO;
@@ -22,6 +23,12 @@ public class ShopDAOImpl implements ShopDAO {
 	
 	@Inject
 	private SqlSession sql;
+	
+	//상품별 리뷰 목록
+	@Override
+	public List <BoardVO> list1(int gdsNum) throws Exception {		
+		return sql.selectList(namespace + ".list1", gdsNum);
+	}
 	
 	//매퍼
 	private static String namespace = "com.kubg.mappers.shopMapper";

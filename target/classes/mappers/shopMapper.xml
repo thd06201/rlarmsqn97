@@ -152,7 +152,15 @@ select
 
 
 
-
+<select id="list1" resultType="com.board.domain.BoardVO">
+	select
+		b.bno, b.title, b.content, b.userId, b.gdsNum, b.regDate, 
+		g.gdsNum, g.gdsDate, g.gdsImg
+	from tbl_board as b
+		inner join tbl_goods as g
+		on b.gdsNum = g.gdsNum  
+		where b.gdsNum = #{gdsNum}
+</select>
 
 
 

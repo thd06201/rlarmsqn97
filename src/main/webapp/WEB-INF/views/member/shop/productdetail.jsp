@@ -169,16 +169,19 @@
                 <div class="tab-pane fade " id="review">
                  <div class="aa-product-review-area">
                    <h4>${productdetail.gdsName} 상품의 리뷰</h4> 
+                   <c:forEach items="${list1}" var="list1">
                    <ul class="aa-review-nav">
                      <li>
                         <div class="media">
                           <div class="media-left">
                             <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            
+                        	<fmt:formatDate value="${list1.gdsDate}" pattern="yyyy/MM/dd" var="datePath" />
+                            <img class="media-object" src="<c:url value="/resources/imgUpload/${datePath}/${list1.gdsImg}"/>" alt="img">
                             </a>
                           </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <h4 class="media-heading"><strong>${list1.userId}</strong> - <span>${list1.regDate}</span></h4>
                             <div class="aa-product-rating">
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star"></span>
@@ -186,31 +189,12 @@
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star-o"></span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="media">
-                          <div class="media-left">
-                            <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                            <div class="aa-product-rating">
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star-o"></span>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p><span>${list1.content}</span></p>
                           </div>
                         </div>
                       </li>
                    </ul>
+                   </c:forEach>
                    <h4>리뷰 작성하기</h4>
                    <div class="aa-your-rating">
                      <p>Your Rating</p>
@@ -360,17 +344,6 @@
                                      data-big-image="img/view-slider/medium/polo-shirt-1.png">
                                      <img src='<c:url value="/resources/imgUpload/${datePath }/${productdetail.gdsImg}"/>'/>
                                   </a>                                    
-                                  <a href="#" class="simpleLens-thumbnail-wrapper"
-                                     data-lens-image="img/view-slider/large/polo-shirt-3.png"
-                                     data-big-image="img/view-slider/medium/polo-shirt-3.png">
-                                      <img src='<c:url value="/resources/imgUpload/${datePath }/${productdetail.gdsImg}"/>'/>
-                                  </a>
-
-                                  <a href="#" class="simpleLens-thumbnail-wrapper"
-                                     data-lens-image="img/view-slider/large/polo-shirt-4.png"
-                                     data-big-image="img/view-slider/medium/polo-shirt-4.png">
-                                     <img src='<c:url value="/resources/imgUpload/${datePath }/${productdetail.gdsImg}"/>'/>
-                                  </a>
                               </div>
                             </div>
                           </div>

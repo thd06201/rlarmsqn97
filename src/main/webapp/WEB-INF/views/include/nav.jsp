@@ -56,6 +56,9 @@
 <div class="cellphone hidden-xs">
  <p><a href="/member/signout" style="position: relative; bottom: -4px;  font-size:19px;">로그아웃 </a></p>
 </div> 
+<div class="cellphone hidden-xs">
+ <p><a href="/shop/cartList" style="position: relative; bottom: -4px;  font-size:19px;">장바구니 </a></p>
+ </div>
  
  
 

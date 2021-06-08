@@ -3,6 +3,7 @@ package com.kubg.persistence;
 import java.util.HashMap;
 import java.util.List;
 
+import com.board.domain.BoardVO;
 import com.kubg.domain.CartListVO;
 import com.kubg.domain.CartVO;
 import com.kubg.domain.GoodsVO;
@@ -13,9 +14,11 @@ import com.kubg.domain.OrderVO;
 
 public interface ShopDAO {
 	
+	//상품별 리뷰 목록
+	public List<BoardVO> list1(int gdsNum) throws Exception;
+	
 	//검색기능
     public List<GoodsVO> productSearch(String keyword ) throws Exception;
-        
 	
 	//카테고리별 상품 리스트
 	public List<GoodsViewVO> list(int cateCode) throws Exception;

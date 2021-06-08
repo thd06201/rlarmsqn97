@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.domain.BoardVO;
 import com.kubg.domain.CartVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
@@ -36,7 +37,6 @@ public class ShopController {
 
 	@Inject
 	ShopService service;
-	
 	 
 	//검색 결과 페이지 
     @RequestMapping(value = "/shop/Search", method = RequestMethod.GET)
@@ -46,8 +46,17 @@ public class ShopController {
     
 	//검색결과 메소드
 	@RequestMapping(value = "/shop/productSearch", method = RequestMethod.POST)
-    public String productSearch(Model model,GoodsVO vo, HttpServletRequest request) throws Exception {
+    public String productSearch(HttpSession session, Model model,GoodsVO vo, HttpServletRequest request) throws Exception {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = null;
 
+		if (member != null) {
+			userId = member.getUserId();
+		}
+		
+		model.addAttribute("cartList", service.cartList(userId));
+		
+		
         String keyword = request.getParameter("keyword");
 
         List<GoodsVO> productList = service.productSearch(keyword);
@@ -58,7 +67,17 @@ public class ShopController {
 	
 	//카테고리별 상품 리스트
 	@RequestMapping(value= "/shop/flower", method = RequestMethod.GET)
-	public String getList(@RequestParam("c") int cateCode, Model model) throws Exception {
+	public String getList(HttpSession session, @RequestParam("c") int cateCode, Model model) throws Exception {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = null;
+
+		if (member != null) {
+			userId = member.getUserId();
+		}
+		
+		model.addAttribute("cartList", service.cartList(userId));
+		
 		List<GoodsViewVO> list = service.list(cateCode);
 		
 		model.addAttribute("list", list);
@@ -79,14 +98,16 @@ public class ShopController {
 			userId = member.getUserId();
 		}
 		
+		System.out.println(gdsNum);
+		
 		model.addAttribute("cartList", service.cartList(userId));
 		
 		GoodsViewVO productdetail = service.goodsView(gdsNum);
 		model.addAttribute("productdetail", productdetail);
+		model.addAttribute("list1", service.list1(gdsNum));
 	
 		return "/member/shop/productdetail";
 	}
-
 	
 
 	
@@ -107,7 +128,7 @@ public class ShopController {
 	 return result;
 	}
 	
-	// 카트 목록
+	    // 카트 목록
 		@RequestMapping(value = "/cartList", method = RequestMethod.GET)
 		public String getCartList(HttpSession session, Model model) throws Exception {
 		
@@ -202,6 +223,12 @@ public class ShopController {
 		 MemberVO member = (MemberVO)session.getAttribute("member");
 		 
 		 String userId = member.getUserId();
+		 
+		 if (member != null) {
+				userId = member.getUserId();
+			}
+			
+			model.addAttribute("cartList", service.cartList(userId));
 		 
 		 order.setUserId(userId);
 		 

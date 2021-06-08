@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.board.domain.BoardVO;
 import com.kubg.domain.CartListVO;
 import com.kubg.domain.CartVO;
 import com.kubg.domain.GoodsVO;
@@ -22,6 +23,12 @@ public class ShopServiceImpl implements ShopService{
 	@Inject
 	private ShopDAO dao;
 	
+	//상품별 리뷰 목록
+	@Override
+	public List<BoardVO> list1(int gdsNum) throws Exception {
+			return dao.list1(gdsNum);
+	}
+
 	//검색기능
 	 @Override
      public List<GoodsVO> productSearch(String keyword ) throws Exception{

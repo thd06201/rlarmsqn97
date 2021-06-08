@@ -12,6 +12,25 @@ public class BoardVO {
 	private Date regDate;
 	private int viewCnt;
 	
+	private Date gdsDate;
+	private String gdsImg;
+	
+	
+	
+	
+	
+	public String getGdsImg() {
+		return gdsImg;
+	}
+	public void setGdsImg(String gdsImg) {
+		this.gdsImg = gdsImg;
+	}
+	public Date getGdsDate() {
+		return gdsDate;
+	}
+	public void setGdsDate(Date gdsDate) {
+		this.gdsDate = gdsDate;
+	}
 	public int getBno() {
 		return bno;
 	}
