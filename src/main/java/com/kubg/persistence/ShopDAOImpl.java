@@ -111,4 +111,9 @@ public class ShopDAOImpl implements ShopDAO {
 		return sql.selectList(namespace + ".getOrderViewsByUserId", userId);
 	}
 
+	@Override
+	public int getOrderListCount(String userId) throws Exception {
+		return sql.selectOne(namespace + ".getOrderListCount", userId);
+	}
+
 }

@@ -192,7 +192,7 @@ public class ShopController {
 		 
 		 model.addAttribute("OrderView", order);
 		 
-		 return "member/shop/payComplete";  
+		 return "member/shop/payComplete";
 		}
 		
 		// 주문 목록
@@ -201,7 +201,11 @@ public class ShopController {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("member");
 		 
-		 String userId = member.getUserId();
+		 String userId = null;
+		 
+		 if (member != null) {
+			 userId = member.getUserId();
+		 }
 		 
 		 order.setUserId(userId);
 		 
@@ -216,14 +220,16 @@ public class ShopController {
 		@RequestMapping(value = "/orderView", method = RequestMethod.GET)
 		public String getOrderView(HttpSession session, Model model) throws Exception {
 		 MemberVO member = (MemberVO)session.getAttribute("member");
-		 String userId = member.getUserId();
+		 String userId = null;
+		 
+		 if (member != null) {
+			 userId = member.getUserId();
+		 }
 		 
 		 List<OrderListVO> orderView = service.getOrderViewsByUserId(userId);
 		 
-		 System.out.println("orderView: " + orderView);
-		 
-		 
 		 model.addAttribute("orderView", orderView);
+		 model.addAttribute("orderListCount", service.getOrderListCount(userId));
 		 
 		 return "member/shop/orderView";
 		}

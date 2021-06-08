@@ -70,19 +70,19 @@
         <div class="col-md-12">
           <div class="aa-error-area">
           
-          <c:forEach items="${orderList}" var="orderList">
             <div style="font-size:50px; color:#FF1493;"> <strong> 고객님, 주문이 완료되었습니다!! </strong></div>
             
+          <c:forEach items="${orderList}" var="orderList">
             <br><br>
             <span>주문번호 : ${orderList.orderId}</span>
             <span>수령인 : ${orderList.orderRec}</span>
             <span>주소 : ${orderList.userAddr1} ${orderList.userAddr2} ${orderList.userAddr3}</span>
             <span>가격 : ${orderList.amount} 원 </span>           
+            </c:forEach>
             <a href="/shop/orderView"> 주문 상세 보러가기</a>
             <div style="font-size:10px;"> 
             
             
-            </c:forEach>
           </div>
         </div>
         </form>

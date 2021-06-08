@@ -15,16 +15,11 @@ public class OrderListVO {
 	private Date orderDate;
 	
 	private int gdsNum;
-	private int cartStock;
-	
 	private String gdsName;
 	private String gdsImg;
 	private int gdsPrice;
 	private int gdsStock;
-	
 	private Date gdsDate;
-	
-	
 	
 	public Date getGdsDate() {
 		return gdsDate;
@@ -92,12 +87,6 @@ public class OrderListVO {
 	public void setGdsNum(int gdsNum) {
 		this.gdsNum = gdsNum;
 	}
-	public int getCartStock() {
-		return cartStock;
-	}
-	public void setCartStock(int cartStock) {
-		this.cartStock = cartStock;
-	}
 	public String getGdsName() {
 		return gdsName;
 	}
@@ -122,7 +111,4 @@ public class OrderListVO {
 	public void setGdsStock(int gdsStock) {
 		this.gdsStock = gdsStock;
 	}
-	
-	
-	
 }
