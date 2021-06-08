@@ -52,9 +52,9 @@ public interface AdminService {
 	//주문 목록
 	public List<OrderVO> orderList() throws Exception;
 	
-	//특정 주문 목록
+	// 특정 주문 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
-		
-	
-	
+	public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception;
+	public int getOrderListCount(String userId) throws Exception;
+
 }

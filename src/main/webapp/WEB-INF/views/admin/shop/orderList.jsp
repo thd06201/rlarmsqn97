@@ -190,8 +190,10 @@
 										<th>주문 번호</th>
 										<th>주문자</th>
 										<th>수령인</th>
+										<th>연락처</th>
 										<th>주소</th>
 										<th>가격</th>
+										<th>주문날짜</th>
 
 									</tr>
 								</thead>
@@ -200,8 +202,10 @@
 										<th>주문 번호</th>
 										<th>주문자</th>
 										<th>수령인</th>
+										<th>연락처</th>
 										<th>주소</th>
 										<th>가격</th>
+										<th>주문날짜</th>
 									</tr>
 								</tfoot>
 
@@ -211,8 +215,10 @@
 											<td><a href="/admin/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></td>
 											<td>${orderList.userId}</td>
 											<td>${orderList.orderRec}</td>
+											<td>${orderList.orderPhon}</td>
 											<td>${orderList.userAddr1} ${orderList.userAddr2} ${orderList.userAddr3}</td>
 											<td><fmt:formatNumber pattern="###,###,###" value="${orderList.amount}"/> 원</td>
+											<td><fmt:formatDate value="${orderList.orderDate}" pattern="yyyy/MM/dd"/></td>
 										</tr>
 									</c:forEach>
 

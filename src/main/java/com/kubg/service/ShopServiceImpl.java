@@ -110,6 +110,9 @@ public class ShopServiceImpl implements ShopService{
 	public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception {
 		return dao.getOrderViewsByUserId(userId);
 	}
-	
-	
+
+	@Override
+	public int getOrderListCount(String userId) throws Exception {
+		return dao.getOrderListCount(userId);
+	}
 }

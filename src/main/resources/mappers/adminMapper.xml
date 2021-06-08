@@ -135,18 +135,14 @@ select
 </select>
 
 <!-- 특정 주문 목록 -->
-<select id="orderView" resultType="com.kubg.domain.OrderListVO">
+<select id="orderView" resultType="com.kubg.domain.OrderVO">
  select
-     o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate, 
-     d.gdsNum, d.cartStock, d.gdsDate, 
-     g.gdsName, g.gdsImg, g.gdsPrice, g.gdsStock, g.gdsDate
+    o.orderId, o.userId, o.gdsNum o.gdsName, o.gdsPrice, o.gdsStock, o.amount,
+    g.gdsImg, g.gdsDate
  from tbl_order o
-         inner join tbl_order_details d
-             on o.orderId = d.orderId
          inner join tbl_goods g
-             on d.gdsNum = g.gdsNum
-     where o.userId = #{userId}
-     	
+             on o.gdsNum = g.gdsNum
+       where o.userId = #{userId}
 </select>
 
 

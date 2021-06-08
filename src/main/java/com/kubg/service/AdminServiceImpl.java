@@ -102,11 +102,19 @@ public class AdminServiceImpl implements AdminService {
 		return dao.orderList();
 	}
 	
-	//주문 목록
-	@Override
-	public List<OrderListVO> orderView(OrderVO order) throws Exception {
-		return dao.orderView(order);
-	}
+	// 특정 주문 목록
+		@Override
+		public List<OrderListVO> orderView(OrderVO order) throws Exception {
+			return dao.orderView(order);
+		}
 		
-		
+		@Override
+		public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception {
+			return dao.getOrderViewsByUserId(userId);
+		}
+
+		@Override
+		public int getOrderListCount(String userId) throws Exception {
+			return dao.getOrderListCount(userId);
+		}
 }

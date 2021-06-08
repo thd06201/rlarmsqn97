@@ -83,11 +83,16 @@ select
 
 
 <select id="getOrderViewsByUserId" resultType="com.kubg.domain.OrderListVO">
-  select
-     orderId, userId, gdsName, gdsPrice, gdsStock , amount
- from tbl_order 
-     where userId = #{userId}
-      and orderId = #{orderId}
+ SELECT o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon,
+ 		o.gdsNum, o.gdsName, o.gdsPrice, o.gdsStock, o.amount, o.orderDate, g.gdsImg, g.gdsDate
+ from tbl_order o
+     join tbl_goods g
+         on o.gdsNum = g.gdsNum   
+     where o.userId = #{userId}
+</select>
+
+<select id="getOrderListCount" resultType="int">
+	SELECT COUNT(*) FROM tbl_order WHERE userId = #{userId}
 </select>
 
 <!-- 특정 주문 목록 -->

@@ -210,9 +210,10 @@
 								<tbody>
 									<c:forEach items="${orderView}" var="orderView">
 										<tr>
-										<td>${orderView.getOrderId()}</td>
+										<td><a href="/shop/orderView?n=${orderView.getOrderId()}"></a></td>
 										<td>
-                                       		${orderView.gdsName}
+                                       		<fmt:formatDate value="${orderView.gdsDate}" pattern="yyyy/MM/dd" var="datePath"/>
+                              		   <img src="<c:url value="/resources/imgUpload/${datePath}/${orderView.gdsImg}"/>" alt="img">
                                        </td>
 										<td>${orderView.gdsName}</td>
 										<td><fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice}"/> 원</td>

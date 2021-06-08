@@ -90,8 +90,8 @@
       <section id="cart-view">
          <br><br><br><br><br><br>
          <div class="container">
-            <a href="return.html" style="background-color:#FF1493;" class="aa-cart-view-btn col-md-6">취소/반품(1)</a>   
-            <a href="order.html"  style="background-color:#FF1493;"  class="aa-cart-view-btn col-md-6">주문 내역 조회(2)</a> 
+            <a href="return.html"  class="aa-cart-view-btn col-md-6">취소/반품(1)</a>   
+            <a href="order.html"    class="aa-cart-view-btn col-md-6">주문 내역 조회(${orderListCount})</a> 
          </div>   
          <div class="container">
             <div class="row">
@@ -114,12 +114,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                  	
-                  	
-                                 
 									<c:forEach items="${orderView}" var="orderView">
-									
-									 
                                     <tr>
                                        <td>${orderView.getOrderId()}</td>
                                        <td>
@@ -128,10 +123,10 @@
                               		   </td>
                                        <td>${orderView.gdsName}</td> <!-- 상품이름 -->
                                        <td>${orderView.gdsPrice}</td><!-- 상품가격 -->
-                                       <td>${orderView.cartStock}</td>
+                                       <td>${orderView.gdsStock}</td><!-- 상품가격 -->
                                        <td>${orderView.amount}</td>
                                        <td>배송중</td>
-                                       <td><a href="return.html" class="aa-cart-view-btn">취소/반품</a></td>
+                                       <td><a href="return.html" style="position: relative;  right: 40px;" class="aa-cart-view-btn">취소/반품</a></td>
                                     </tr>
                                    </c:forEach>
 

@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -339,4 +340,36 @@ public class AdminController {
 	 }
 	
 	 */
+	 /*
+	// 주문 상세 목록
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
+	public String getOrderView(HttpSession session,@RequestParam("n") String orderId,
+		       OrderVO order, Model model) throws Exception {
+
+		order.setOrderId(orderId);
+
+		List<OrderListVO> orderView = adminService.orderView(order);
+		model.addAttribute("orderView", orderView);
+
+		return "member/shop/orderView";
+	}*/
+	 
+	// 주문 상세 목록
+	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
+	public String getOrderView(HttpSession session,@RequestParam("n") String orderId,
+		       OrderVO order, Model model) throws Exception {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = null;
+
+		if (member != null) {
+			userId = member.getUserId();
+		}
+
+		List<OrderListVO> orderView = adminService.getOrderViewsByUserId(userId);
+
+		model.addAttribute("orderView", orderView);
+		model.addAttribute("orderListCount", adminService.getOrderListCount(userId));
+
+		return "member/shop/orderView";
+	}
 }

@@ -105,11 +105,21 @@ public class AdminDAOImpl implements AdminDAO{
 		return sql.selectList(namespace + ".orderList");
 	}
 	
-	//주문 목록
-	@Override
-	public List<OrderListVO> orderView(OrderVO order) throws Exception {
-		return sql.selectList(namespace + "orderView", order);
-	}
+	// 특정 주문 목록
+		@Override
+		public List<OrderListVO> orderView(OrderVO order) throws Exception {
+			return sql.selectList(namespace + ".orderView", order);
+		}
+		
+		@Override
+		public List<OrderListVO> getOrderViewsByUserId(String userId) throws Exception {
+			return sql.selectList(namespace + ".getOrderViewsByUserId", userId);
+		}
+
+		@Override
+		public int getOrderListCount(String userId) throws Exception {
+			return sql.selectOne(namespace + ".getOrderListCount", userId);
+		}
 		
 		
 

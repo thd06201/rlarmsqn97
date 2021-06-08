@@ -3,10 +3,8 @@ package com.kubg.controller;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,13 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.board.domain.BoardVO;
 import com.kubg.domain.CartVO;
 import com.kubg.domain.GoodsVO;
 import com.kubg.domain.GoodsViewVO;
@@ -213,7 +209,7 @@ public class ShopController {
 		 
 		 model.addAttribute("OrderView", order);
 		 
-		 return "member/shop/payComplete";  
+		 return "member/shop/payComplete";
 		}
 		
 		// 주문 목록
@@ -221,14 +217,17 @@ public class ShopController {
 		public String getOrderList(HttpSession session, OrderVO order, Model model) throws Exception {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("member");
+		 String userId = null;
 		 
-		 String userId = member.getUserId();
+		 if (member != null) {
+			 userId = member.getUserId();
+		 }
 		 
 		 if (member != null) {
 				userId = member.getUserId();
 			}
 			
-			model.addAttribute("cartList", service.cartList(userId));
+		model.addAttribute("cartList", service.cartList(userId));
 		 
 		 order.setUserId(userId);
 		 
@@ -243,14 +242,18 @@ public class ShopController {
 		@RequestMapping(value = "/orderView", method = RequestMethod.GET)
 		public String getOrderView(HttpSession session, Model model) throws Exception {
 		 MemberVO member = (MemberVO)session.getAttribute("member");
-		 String userId = member.getUserId();
+		 String userId = null;
+		 
+		 if (member != null) {
+			 userId = member.getUserId();
+		 }
+
+		 model.addAttribute("cartList", service.cartList(userId));
 		 
 		 List<OrderListVO> orderView = service.getOrderViewsByUserId(userId);
 		 
-		 System.out.println("orderView: " + orderView);
-		 
-		 
 		 model.addAttribute("orderView", orderView);
+		 model.addAttribute("orderListCount", service.getOrderListCount(userId));
 		 
 		 return "member/shop/orderView";
 		}
